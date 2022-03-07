@@ -2,6 +2,7 @@
     "name": "deg540/php-testing-boilerplate",
     "description": "Php testing boilerplate",
     "type": "project",
+    "license": "GPL-2.0-or-later",
     "require": {
         "php": "^8.0"
     },
