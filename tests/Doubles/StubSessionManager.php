@@ -14,5 +14,9 @@ class StubSessionManager implements SessionManager
         return false;
     }
 
-
+    public function logout(string $userName): bool
+    {
+        return false;
+    }
+    public function secureLogin(){}
 }

@@ -4,6 +4,7 @@ namespace UserLoginService\Application;
 
 
 
+use PHPUnit\Exception;
 use UserLoginService\Domain\User;
 use UserLoginService\Infrastructure\FacebookSessionManager;
 
@@ -54,11 +55,35 @@ class UserLoginService
         return $this->sessionManager;
     }
 
-    public function login(string $userName, string $passWord)
+    public function login(string $userName, string $passWord): string
     {
         if($this->sessionManager->login($userName,$passWord)){
             $this->manualLogin(new User($userName));
+            return "Login correcto";
         }
+        return "Login incorrecto";
+    }
+
+    public function logOut(User $user): string
+    {
+        if(in_array($user,$this->loggedUsers)){
+            unset($this->loggedUsers[array_search($user,$this->loggedUsers)]);
+            $this->sessionManager->logout($user->getUserName());
+            return "Ok";
+        }
+        return "Usuario no logeado";
+    }
+
+    public function secureLogin(User $user): string
+    {
+        try{
+            $this->sessionManager->secureLogin($user->getUserName());
+        }catch (Exception $exception){
+            if($exception->getMessage() === "user does not exist"){
+                return "Usuario no existe";
+            }
+        }
+
     }
 
 
