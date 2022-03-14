@@ -42,7 +42,9 @@ final class UserLoginServiceTest extends TestCase
      */
     public function returnNumberOfSessions()
     {
-        $userLoginService = new UserLoginService(new StubSessionManager());
+        $sessionMananger = Mockery::mock(SessionManager::class);
+        $sessionMananger->shouldReceive('getSessions')->andReturn(10);
+        $userLoginService = new UserLoginService($sessionMananger);
         $externalSessions = $userLoginService->countExternalSessions();
         $this->assertEquals($externalSessions, 10);
     }
