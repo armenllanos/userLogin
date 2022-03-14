@@ -5,7 +5,7 @@ namespace UserLoginService\Tests\Doubles;
 use PHPUnit\Util\Exception;
 use UserLoginService\Application\SessionManager;
 use function PHPUnit\Framework\throwException;
-
+//el spy y el mock se ejecutan mientras se ejcuta el programa, en vez de al final como el stub, fake o dummy
 class SpySessionManager implements SessionManager
 {
     private int $calls = 0;
@@ -38,7 +38,7 @@ class SpySessionManager implements SessionManager
             throw(new Exception("Numero de llamadas incorrecto,hay $callsExpected pero se esperaban $this->calls"));
         }
     }
-    public function secureLogin(){}
+    public function secureLogin(string $userName){}
 
 
 }

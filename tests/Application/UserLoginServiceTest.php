@@ -10,6 +10,7 @@ use UserLoginService\Domain\User;
 use UserLoginService\Infrastructure\FacebookSessionManager;
 use UserLoginService\Tests\Doubles\DummySessionManager;
 use UserLoginService\Tests\Doubles\FakeSessionManager;
+use UserLoginService\Tests\Doubles\MockSessionManager;
 use UserLoginService\Tests\Doubles\SpySessionManager;
 use UserLoginService\Tests\Doubles\StubSessionManager;
 
@@ -88,10 +89,16 @@ final class UserLoginServiceTest extends TestCase
      * @test
      */
     public function userNotSecureLoggedIn(){
-        $userLoginService = new UserLoginService(new StubSessionManager());
+        $sessionManager = new MockSessionManager;
+        $userLoginService = new UserLoginService($sessionManager);
         $user = new User('user_name');
+        $sessionManager->times(1);
+        $sessionManager->withArguments('user_name');
+        $sessionManager->andThrowException('Service not found');
+
         $respuesta = $userLoginService->secureLogin($user);
-        $this->assertEquals($respuesta,"Usuario no existe");
+        $this->assertTrue($sessionManager->verifyValid());
+        $this->assertEquals($respuesta,"Servicio no responde");
     }
 
 }

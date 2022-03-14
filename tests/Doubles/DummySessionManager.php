@@ -20,6 +20,6 @@ class DummySessionManager implements SessionManager
     {
 
     }
-    public function secureLogin(){}
+    public function secureLogin(string $userName){}
 
 }

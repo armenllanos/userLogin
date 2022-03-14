@@ -10,5 +10,5 @@ interface SessionManager
 
     public function logout(string $userName);
 
-    public function secureLogin();
+    public function secureLogin(string $userName);
 }

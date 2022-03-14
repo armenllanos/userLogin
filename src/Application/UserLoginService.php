@@ -82,6 +82,12 @@ class UserLoginService
             if($exception->getMessage() === "user does not exist"){
                 return "Usuario no existe";
             }
+            if($exception->getMessage() === "user incorrect credentials"){
+                return "Usuario no existe";
+            }
+            if($exception->getMessage() === 'Service not found'){
+                return "Servicio no responde";
+            }
         }
 
     }
