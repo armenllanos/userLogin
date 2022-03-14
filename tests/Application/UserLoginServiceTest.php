@@ -34,7 +34,7 @@ final class UserLoginServiceTest extends TestCase
      */
     public function noUsersIsEmpty()
     {
-        $userLoginService = new UserLoginService(new DummySessionManager());
+        $userLoginService = new UserLoginService(Mockery::mock(SessionManager::class));
         $this->assertEmpty( $userLoginService->getLoggedUsers());
     }
     /**
