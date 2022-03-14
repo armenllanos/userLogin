@@ -53,9 +53,14 @@ final class UserLoginServiceTest extends TestCase
      */
     public function correctLoginTest()
     {
-        $userLoginService = new UserLoginService(new FakeSessionManager());
+        $sessionMananger = Mockery::mock(SessionManager::class);
+        $sessionMananger
+            ->shouldReceive('login')
+            ->with('user_name','1234')
+            ->andReturn(true);
+        $userLoginService = new UserLoginService($sessionMananger);
         $user = new User('user_name');
-        $externalSessions = $userLoginService->login('user_name','1234');
+        $userLoginService->login('user_name','1234');
         $this->assertEquals([$user], $userLoginService->getLoggedUsers());
     }
     /**
