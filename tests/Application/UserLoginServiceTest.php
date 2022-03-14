@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace UserLoginService\Tests\Application;
 
+use Mockery;
 use PHPUnit\Framework\TestCase;
+use UserLoginService\Application\SessionManager;
 use UserLoginService\Application\UserLoginService;
 use UserLoginService\Domain\User;
 use UserLoginService\Infrastructure\FacebookSessionManager;
@@ -23,7 +25,7 @@ final class UserLoginServiceTest extends TestCase
     public function userIsLoggedIn()
     {
         $user = new User('user_name');
-        $userLoginService = new UserLoginService(new DummySessionManager());
+        $userLoginService = new UserLoginService(Mockery::mock(SessionManager::class));
         $userLoginService->manualLogin($user);
         $this->assertEquals([$user], $userLoginService->getLoggedUsers());
     }
