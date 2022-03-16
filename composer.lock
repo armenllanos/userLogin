@@ -33,6 +33,7 @@
                 "phpstan/phpstan-phpunit": "^1",
                 "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
                 "vimeo/psalm": "^4.22"
+                "mockery/mockery": "dev-master"
             },
             "type": "library",
             "autoload": {
